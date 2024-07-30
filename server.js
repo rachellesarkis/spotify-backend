@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+const cors = require("cors");
+app.use(cors());
 
 const spotifyRoutes = require("./routes/spotifyRoutes");
 
