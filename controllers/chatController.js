@@ -54,19 +54,19 @@ const getChatHistory = async (req, res) => {
   try {
     const chats = await Chat.find({ artistId, userId }).sort({ index: 1 });
 
-    if (!chats.length) {
-      return res.status(404).json({ message: "No chat history found" });
+    if (chats.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "No chat history found", chats: [] });
     }
 
     res.status(200).json(chats);
   } catch (error) {
     console.error("Error retrieving chat history:", error);
-    res
-      .status(500)
-      .json({
-        error: "Failed to retrieve chat history",
-        details: error.message,
-      });
+    res.status(500).json({
+      error: "Failed to retrieve chat history",
+      details: error.message,
+    });
   }
 };
 
